@@ -41,4 +41,5 @@ const products = [
   { id: 'cooler-240', category: 'Cooler', name: 'Arctic Liquid Freezer III 240', short: 'Liquid Freezer III 240', specs: '240 mm AIO · PWM pump', price: 89, image: productImage('computer,cpu-cooler', 804) },
   { id: 'cooler-nh-d15', category: 'Cooler', name: 'Noctua NH-D15 chromax.black', short: 'Noctua NH-D15 Black', specs: 'Dual tower · 1500 RPM', price: 109, image: productImage('computer,cpu-cooler', 805) }
 ];
+products.forEach(product => { product.image = `image/${encodeURIComponent(product.name)}.jfif`; });
 const categories = [{ name: 'Processors', type: 'CPU', icon: '⌁', count: '14 items' }, { name: 'Graphics cards', type: 'GPU', icon: '▣', count: '20 items' }, { name: 'Motherboards', type: 'Motherboard', icon: '⌘', count: '17 items' }, { name: 'Memory', type: 'RAM', icon: '▤', count: '12 items' }, { name: 'Storage', type: 'Storage', icon: '◫', count: '16 items' }, { name: 'Power supplies', type: 'PSU', icon: '◒', count: '10 items' }, { name: 'PC cases', type: 'Case', icon: '▥', count: '12 items' }, { name: 'CPU coolers', type: 'Cooler', icon: '✣', count: '9 items' }];

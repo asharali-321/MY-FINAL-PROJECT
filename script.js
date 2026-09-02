@@ -1,4 +1,5 @@
-const money = value => `$${value.toLocaleString('en-US')}`;
+const USD_TO_PKR = 282;
+const money = value => `Rs. ${(value * USD_TO_PKR).toLocaleString('en-PK', { maximumFractionDigits: 0 })}`;
 const state = { build: {}, filter: 'All', search: '' };
 const $ = selector => document.querySelector(selector);
 function productCard(product) { return `<article class="product-card"><button class="product-image" data-product="${product.id}" aria-label="View ${product.name}"><img src="${product.image}" alt="${product.name}"><span class="view-product">View details ↗</span></button><div class="product-meta"><span class="product-category">${product.category}</span><h3>${product.name}</h3><p>${product.specs}</p><strong>${money(product.price)}</strong></div></article>`; }
