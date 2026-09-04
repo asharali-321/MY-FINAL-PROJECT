@@ -42,4 +42,14 @@ const products = [
   { id: 'cooler-nh-d15', category: 'Cooler', name: 'Noctua NH-D15 chromax.black', short: 'Noctua NH-D15 Black', specs: 'Dual tower · 1500 RPM', price: 109, image: productImage('computer,cpu-cooler', 805) }
 ];
 products.forEach(product => { product.image = `image/${encodeURIComponent(product.name)}.jfif`; });
-const categories = [{ name: 'Processors', type: 'CPU', icon: '⌁', count: '14 items' }, { name: 'Graphics cards', type: 'GPU', icon: '▣', count: '20 items' }, { name: 'Motherboards', type: 'Motherboard', icon: '⌘', count: '17 items' }, { name: 'Memory', type: 'RAM', icon: '▤', count: '12 items' }, { name: 'Storage', type: 'Storage', icon: '◫', count: '16 items' }, { name: 'Power supplies', type: 'PSU', icon: '◒', count: '10 items' }, { name: 'PC cases', type: 'Case', icon: '▥', count: '12 items' }, { name: 'CPU coolers', type: 'Cooler', icon: '✣', count: '9 items' }];
+const categoryImageMap = {
+  CPU: products.find(product => product.category === 'CPU')?.image || '',
+  GPU: products.find(product => product.category === 'GPU')?.image || '',
+  Motherboard: products.find(product => product.category === 'Motherboard')?.image || '',
+  RAM: products.find(product => product.category === 'RAM')?.image || '',
+  Storage: products.find(product => product.category === 'Storage')?.image || '',
+  PSU: products.find(product => product.category === 'PSU')?.image || '',
+  Case: products.find(product => product.category === 'Case')?.image || '',
+  Cooler: products.find(product => product.category === 'Cooler')?.image || ''
+};
+const categories = [{ name: 'CPU', type: 'CPU', image: categoryImageMap.CPU, icon: '⌁', count: '14 items' }, { name: 'GPU', type: 'GPU', image: categoryImageMap.GPU, icon: '▣', count: '20 items' }, { name: 'Motherboard', type: 'Motherboard', image: categoryImageMap.Motherboard, icon: '⌘', count: '17 items' }, { name: 'RAM', type: 'RAM', image: categoryImageMap.RAM, icon: '▤', count: '12 items' }, { name: 'Storage', type: 'Storage', image: categoryImageMap.Storage, icon: '◫', count: '16 items' }, { name: 'Power Supply', type: 'PSU', image: categoryImageMap.PSU, icon: '◒', count: '10 items' }, { name: 'PC Case', type: 'Case', image: categoryImageMap.Case, icon: '▥', count: '12 items' }, { name: 'CPU Cooler', type: 'Cooler', image: categoryImageMap.Cooler, icon: '✣', count: '9 items' }];
