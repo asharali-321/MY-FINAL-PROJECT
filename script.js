@@ -311,18 +311,42 @@ $('#contact-form').addEventListener('submit', event => {
 
 $('#checkout-form').addEventListener('submit', event => {
   event.preventDefault();
-
   if (!state.cart.length) {
     $('#checkout-message').textContent = 'Your cart is empty. Add a few parts before checking out.';
     return;
   }
 
-  const total = getCartSummary().reduce((sum, item) => sum + item.lineTotal, 0);
-  $('#checkout-message').textContent = `Thanks! Your order for ${money(total)} has been placed successfully.`;
-  state.cart = [];
-  saveCart();
-  renderCart();
-  event.target.reset();
+  const form = event.target;
+  const cartItems = getCartSummary();
+  const total = cartItems.reduce((sum, item) => sum + item.lineTotal, 0);
+
+  const orderData = {
+    fullName: form.fullName.value,
+    email: form.email.value,
+    phone: form.phone.value,
+    address: form.address.value,
+    city: form.city.value,
+    products: cartItems.map(item => `${item.name} x${item.quantity}`).join(', '),
+    total: money(total)
+  };
+
+  $('#checkout-message').textContent = 'Placing your order...';
+
+  fetch('https://hook.us2.make.com/ny1t5pdg3fhd717468bv891rm54q378i', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(orderData)
+  })
+    .then(() => {
+      $('#checkout-message').textContent = `Thanks! Your order for ${money(total)} has been placed successfully.`;
+      state.cart = [];
+      saveCart();
+      renderCart();
+      form.reset();
+    })
+    .catch(() => {
+      $('#checkout-message').textContent = 'Something went wrong sending your order. Please try again.';
+    });
 });
 
 window.addEventListener('hashchange', navigate);
